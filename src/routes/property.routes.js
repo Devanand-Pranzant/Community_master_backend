@@ -1,11 +1,12 @@
-import express from "express";
-import * as controller from "../controllers/property.controller.js";
-
+const express = require("express");
 const router = express.Router();
+const controller = require("../controllers/property.controller");
+const upload = require("../middlewares/upload.middleware");
 
-router.get("/:client_id/:community_id", controller.getProperties);
-router.post("/", controller.createProperty);
-router.put("/:property_id", controller.updateProperty);
-router.delete("/:property_id", controller.deleteProperty);
+router.get("/", controller.getAll);
+router.get("/:id", controller.getById);    
+router.post("/", upload.single("property_image"), controller.create);
+router.put("/:id", upload.single("property_image"), controller.update);
+router.delete("/:id", controller.delete);
 
-export default router;
+module.exports = router;

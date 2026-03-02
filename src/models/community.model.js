@@ -1,33 +1,53 @@
-import { pool } from "../config/db.js";
+const db = require("../config/db");
 
-export const getCommunities = async (clientId) => {
-  const result = await pool.query(
-    "SELECT public.fn_get_communities($1) AS result",
-    [clientId]
-  );
-  return result.rows[0].result;
-};
-
-export const createCommunity = async (data) => {
-  const result = await pool.query(
-    "SELECT public.fn_insert_community($1) AS result",
+exports.create = async (data) => {
+  const result = await db.query(
+    "SELECT public.fn_insert_communities($1) AS result",
     [data]
   );
   return result.rows[0].result;
 };
 
-export const updateCommunity = async (communityId, data) => {
-  const result = await pool.query(
-    "SELECT public.fn_update_community($1,$2) AS result",
-    [communityId, data]
+exports.update = async (id, data) => {
+  const result = await db.query(
+    "SELECT public.fn_update_communities($1,$2) AS result",
+    [id, data]
   );
   return result.rows[0].result;
 };
 
-export const deleteCommunity = async (communityId) => {
-  const result = await pool.query(
-    "SELECT public.fn_delete_community($1) AS result",
-    [communityId]
+// exports.delete = async (id, updated_by) => {
+//   const result = await db.query(
+//     "SELECT public.fn_delete_communities($1,$2) AS result",
+//     [id, updated_by]
+//   );
+//   return result.rows[0].result;
+// };
+
+exports.delete = async (id) => {
+  const result = await db.query(
+    "SELECT public.fn_delete_communities($1) AS result",
+    [id]
   );
   return result.rows[0].result;
+};
+
+
+exports.getById = async (id) => {
+  const result = await db.query(
+    "SELECT * FROM communities WHERE community_id = $1",
+    [id]
+  );
+  return result.rows[0];
+};
+
+exports.getAll = async (search = "") => {
+  const result = await db.query(
+    `SELECT * FROM communities
+     WHERE is_active = true
+     AND community_name ILIKE $1
+     ORDER BY community_id DESC`,
+    [`%${search}%`]
+  );
+  return result.rows;
 };

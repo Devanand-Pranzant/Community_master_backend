@@ -1,11 +1,12 @@
-import express from "express";
-import * as controller from "../controllers/community.controller.js";
-
+const express = require("express");
 const router = express.Router();
+const controller = require("../controllers/community.controller");
+const upload = require("../middlewares/upload.middleware");
 
-router.get("/:client_id", controller.getCommunities);
-router.post("/", controller.createCommunity);
-router.put("/:community_id", controller.updateCommunity);
-router.delete("/:community_id", controller.deleteCommunity);
+router.get("/", controller.getAll);
+router.get("/:id", controller.getById);
+router.post("/", upload.single("profile_image"), controller.create);
+router.put("/:id", upload.single("profile_image"), controller.update);
+router.delete("/:id", controller.delete);
 
-export default router;
+module.exports = router;
