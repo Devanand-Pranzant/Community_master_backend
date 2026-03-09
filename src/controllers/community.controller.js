@@ -65,11 +65,29 @@ exports.getById = async (req, res) => {
 };
 
 
+// exports.delete = async (req, res) => {
+//   try {
+//     const result = await model.delete(req.params.id);
+//     res.json(result);
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
 exports.delete = async (req, res) => {
-  try {
-    const result = await model.delete(req.params.id);
-    res.json(result);
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+  try {
+
+    const id = req.params.id;
+    const updated_by = req.body.updated_by;
+
+    const result = await model.delete(id, updated_by);
+
+    res.json(result);
+
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:err.message
+    });
+  }
 };

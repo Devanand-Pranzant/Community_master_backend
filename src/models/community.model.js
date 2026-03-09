@@ -16,22 +16,23 @@ exports.update = async (id, data) => {
   return result.rows[0].result;
 };
 
-// exports.delete = async (id, updated_by) => {
+
+
+// exports.delete = async (id) => {
 //   const result = await db.query(
-//     "SELECT public.fn_delete_communities($1,$2) AS result",
-//     [id, updated_by]
+//     "SELECT public.fn_delete_communities($1) AS result",
+//     [id]
 //   );
 //   return result.rows[0].result;
 // };
 
-exports.delete = async (id) => {
-  const result = await db.query(
-    "SELECT public.fn_delete_communities($1) AS result",
-    [id]
-  );
-  return result.rows[0].result;
+exports.delete = async (id, updated_by) => {
+  const result = await db.query(
+    "SELECT public.fn_delete_communities($1,$2) AS result",
+    [id, updated_by]
+  );
+  return result.rows[0].result;
 };
-
 
 exports.getById = async (id) => {
   const result = await db.query(

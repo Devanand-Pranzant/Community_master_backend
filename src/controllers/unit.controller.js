@@ -59,3 +59,24 @@ exports.getById = async (req, res) => {
     });
   }
 };
+
+exports.getByProperty = async (req, res) => {
+  try {
+    const propertyId = req.params.property_id;
+
+    const units = await model.getByProperty(propertyId);
+
+    res.json({
+      success: true,
+      data: units,
+    });
+
+  } catch (error) {
+    console.error("Error fetching units by property:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch units",
+    });
+  }
+};
