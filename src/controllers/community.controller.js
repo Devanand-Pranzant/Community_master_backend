@@ -1,3 +1,81 @@
+// const model = require("../models/community.model");
+
+// exports.getAll = async (req, res) => {
+//   try {
+//     const data = await model.getAll(req.query.search || "");
+//     res.json(data);
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
+// exports.create = async (req, res) => {
+//   try {
+//     const data = req.body;
+//     if (req.file) data.profile_image = `/uploads/${req.file.filename}`;
+//     const result = await model.create(data);
+//     res.json(result);
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
+// exports.update = async (req, res) => {
+//   try {
+//     const data = req.body;
+//     if (req.file) data.profile_image = `/uploads/${req.file.filename}`;
+//     const result = await model.update(req.params.id, data);
+//     res.json(result);
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
+
+// exports.getById = async (req, res) => {
+//   try {
+//     const data = await model.getById(req.params.id);
+
+//     if (!data) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Community not found"
+//       });
+//     }
+
+//     return res.json({
+//       success: true,
+//       data
+//     });
+
+//   } catch (err) {
+//     return res.status(500).json({
+//       success: false,
+//       message: err.message
+//     });
+//   }
+// };
+
+
+
+// exports.delete = async (req, res) => {
+//   try {
+
+//     const id = req.params.id;
+//     const updated_by = req.body.updated_by;
+
+//     const result = await model.delete(id, updated_by);
+
+//     res.json(result);
+
+//   } catch (err) {
+//     res.status(500).json({
+//       success:false,
+//       message:err.message
+//     });
+//   }
+// };
+
 const model = require("../models/community.model");
 
 exports.getAll = async (req, res) => {
@@ -75,19 +153,21 @@ exports.getById = async (req, res) => {
 // };
 
 exports.delete = async (req, res) => {
-  try {
+  try {
 
-    const id = req.params.id;
-    const updated_by = req.body.updated_by;
+    const id = req.params.id;
+    const updated_by = req.body.updated_by;
 
-    const result = await model.delete(id, updated_by);
+    const result = await model.delete(id, updated_by);
 
-    res.json(result);
+    res.json(result);
 
-  } catch (err) {
-    res.status(500).json({
-      success:false,
-      message:err.message
-    });
-  }
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:err.message
+    });
+  }
 };
+
+//updated code 
